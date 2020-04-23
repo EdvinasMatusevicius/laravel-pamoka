@@ -12,7 +12,7 @@ class ApiResponse
 
     private $status = null;
 
-    public function unauthorized(string $string){
+    public function unauthorized(string $message = null){
         $response = $this->setStatus(JsonResponse::HTTP_UNAUTHORIZED)->base();
         $response['message']= $message ?? 'Unautherised';
 
@@ -38,7 +38,7 @@ class ApiResponse
     public function exeption(?string $message = null): JsonResponse
     {
         $response = $this->setStatus(JsonResponse::HTTP_BAD_REQUEST)->base();
-        $response['message']= $message ?? 'Something went wrong.';
+        $response['message']= $message ?? 'Unauthorized';
         return response()->json($response,JsonResponse::HTTP_BAD_REQUEST);  //--------------[]
     }
 

@@ -5,7 +5,7 @@ namespace App\Http\Requests\API;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 
-class RegisterRequest extends LoginRequest-
+class RegisterRequest extends LoginRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,5 +30,20 @@ class RegisterRequest extends LoginRequest-
             'password'=>'required|min:8|confirmed'
         ];
     }
-
+    public function getData():array
+    {
+        return[
+            'name' => $this->getCustomerName(),
+            'email'=> $this->getCustomerEmail(),
+            'password'=>$this->getCustomerPassword()
+        ];
+    }
+    private function getCustomerName():string
+    {
+        return $this->input('name');
+    }
+    private function getCustomerPassword():string
+    {
+        return Hash::make((string)$this->input('password'));
+    }
 }

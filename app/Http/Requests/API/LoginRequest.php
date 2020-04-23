@@ -32,4 +32,9 @@ class LoginRequest extends FormRequest
     public function getCredentials(): array{
         return $this->only(['email','password']);
     }
+    
+    public function getCustomerEmail():string
+    {
+        return $this->input('email');
+    }
 }
