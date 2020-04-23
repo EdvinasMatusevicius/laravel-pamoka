@@ -30,7 +30,7 @@ class RegisterRequest extends LoginRequest
             'password'=>'required|min:8|confirmed'
         ];
     }
-    public function getRegisterData():array
+    public function getData():array
     {
         return[
             'name' => $this->getCustomerName(),
@@ -41,10 +41,6 @@ class RegisterRequest extends LoginRequest
     private function getCustomerName():string
     {
         return $this->input('name');
-    }
-    private function getCustomerEmail():string
-    {
-        return $this->input('email');
     }
     private function getCustomerPassword():string
     {

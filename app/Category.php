@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Category whereActive($value)
  * @property string $slug
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Category whereSlug($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Product[] $products
+ * @property-read int|null $products_count
  */
 class Category extends Model
 {
