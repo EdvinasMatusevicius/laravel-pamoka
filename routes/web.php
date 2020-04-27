@@ -50,6 +50,8 @@ Route::middleware('auth:admin', RouteAccessMiddleware::ALIAS)->group(function ()
         Route::resource('admins', 'AdminController')->except('show');
         Route::resource('roles', 'RoleController');
 
+        Route::resource('supplier','SupplyController');
+
     });
     Route::resource('customers', 'CustomerController');
 
@@ -85,13 +87,5 @@ Route::middleware('auth:admin', RouteAccessMiddleware::ALIAS)->group(function ()
         Route::delete('{category}', 'CategoryController@destroy')
             ->name('destroy');
     });
-    // Route::prefix('customer')->name('customer.')->group(function () {
-        
-    //     Route::get('me','CustomerController@me')
-    //     ->name('me');
-
-    //     Route::put('update/{user}','CustomerController@update')
-    //     ->name('update');
-    // });
     
 });
