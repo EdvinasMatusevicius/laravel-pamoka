@@ -87,6 +87,9 @@ class ProductStoreRequest extends FormRequest
     public function getCategories(): array{
         return $this->input('categories',[]);
     }
+    public function getSuppliers(): array{
+        return $this->input('suppliers',[]);
+    }
     public function getImages(): array{
         return $this->file('image',[]);
     }

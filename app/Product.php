@@ -60,6 +60,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class,'category_product','product_id','category_id');
     }
+    public function suppliers(): BelongsToMany{
+        return $this->belongsToMany(Supply::class,'supply_product');
+    }
     public function images(): HasMany{
         return $this->hasMany(ProductImage::class);
     } 

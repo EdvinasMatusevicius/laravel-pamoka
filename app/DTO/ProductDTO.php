@@ -28,6 +28,7 @@ class ProductDTO extendS DTO
             'price'=>$this->product->price,
             'images'=>$this->getImages(),
             'categories'=> $this->getCategories(),
+            'suppliers'=> $this->getSuppliers()
         ];
     }
     private function getImages(): array
@@ -50,4 +51,17 @@ class ProductDTO extendS DTO
 
         return $categoriesDTO;
     }
+    
+    private function getSuppliers(): CollectionDTO
+    {
+        $suppliersDTO = new CollectionDTO();
+
+        foreach ($this->product->suppliers as $supplier){
+            $suppliersDTO->pushItem(new SupplierDTO($supplier));
+        }
+
+        return $suppliersDTO;
+    }
+    
+    
 }
