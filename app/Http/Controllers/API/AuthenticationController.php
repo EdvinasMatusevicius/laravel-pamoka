@@ -3,6 +3,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\DTO\Abstracts\CustomerDTO;
+use App\Events\API\CustomerLoginEvent;
+use App\Events\API\CustomerLogoutEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\LoginRequest;
 use App\Http\Requests\API\RegisterRequest;
@@ -11,6 +13,7 @@ use App\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Lcobucci\JWT\Parser;
 
 class AuthenticationController extends Controller
@@ -38,10 +41,12 @@ class AuthenticationController extends Controller
            }
            $customer=auth()->user();
 
-           $token=$customer->createToken('Grant Client')->accessToken;
+           $personalAccessToken=$customer->createToken('Grant Client');
+
+           event(new CustomerLoginEvent($customer,$personalAccessToken->token->id, Carbon::now()));
 
            return (new ApiResponse())->success([
-               'token'=>$token,
+            'token' => $personalAccessToken->accessToken,
                'token_type'=>'bearer',
            ]);
             
@@ -66,11 +71,13 @@ class AuthenticationController extends Controller
         try{
             $value = $request->bearerToken();
             $tokenId = (new Parser())->parse($value)->getClaim('jti');
-
+            
             $customer = auth('api')->user();
             $token = $customer->tokens->find($tokenId);
-
+            
             $token->revoke();
+            event(new CustomerLogoutEvent($customer,$tokenId,Carbon::now()));
+
         }catch(Exception $exeption){
             return (new ApiResponse())->exeption($exeption->getMessage());
         }
