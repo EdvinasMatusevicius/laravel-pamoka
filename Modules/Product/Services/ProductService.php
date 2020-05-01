@@ -2,14 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace App\Services;
+namespace Modules\Product\Services;
 
 use App\DTO\Abstracts\CollectionDTO;
 use App\DTO\Abstracts\PaginateLengthAwareDTO;
-use App\DTO\CategoryDTO;
-use App\DTO\ProductDTO;
-use App\Product;
 use Illuminate\Database\Eloquent\Builder;
+use Modules\Product\DTO\ProductDTO;
+use Modules\Product\Entities\Product;
 
 class ProductService
 {

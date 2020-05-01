@@ -16,15 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::namespace('API')->name('api.')->group(function(){
-    // Route::prefix('auth')->group( function () {
 
-    //     Route::post('register','AuthController@register')->name('register');
-    //     Route::post('login', 'AuthController@login')->name('login');
-    //     Route::post('logout', 'AuthController@logout')->name('logout');
-    //     Route::post('refresh', 'AuthController@refresh')->name('refresh');
-    //     Route::get('me', 'AuthController@me')->name('me');
-    
-    // });
 
     Route::prefix('auth')->group(function(){
         Route::post('register','AuthenticationController@register')->name('register');
@@ -37,6 +29,5 @@ Route::namespace('API')->name('api.')->group(function(){
     });
 
     Route::apiResource('categories','CategoryController')->only(['index','show']);
-    Route::apiResource('products','ProductController')->only('index','show');
 }
 );

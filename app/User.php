@@ -38,6 +38,8 @@ use Laravel\Passport\HasApiTokens;
  * @property-read int|null $clients_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @property-read int|null $tokens_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\UserAuthLog[] $authLogs
+ * @property-read int|null $auth_logs_count
  */
 class User extends Authenticatable implements JWTSubject
 {

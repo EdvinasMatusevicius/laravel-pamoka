@@ -56,18 +56,6 @@ Route::middleware('auth:admin', RouteAccessMiddleware::ALIAS)->group(function ()
     Route::resource('customers', 'CustomerController');
 
     Route::prefix('products')->name('products.')->group(function () {
-        Route::get('/', 'ProductController@index')
-            ->name('index');
-        Route::get('create', 'ProductController@create')
-            ->name('create');
-        Route::post('/', 'ProductController@store')
-            ->name('store');
-        Route::get('{product}/edit', 'ProductController@edit')
-            ->name('edit');
-        Route::put('{product}', 'ProductController@update')
-            ->name('update');
-        Route::delete('{product}', 'ProductController@destroy')
-            ->name('destroy');
 
         Route::resource('attributes', 'ProductAttributeController')
             ->except(['show']);

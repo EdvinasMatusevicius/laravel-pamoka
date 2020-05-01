@@ -1,28 +1,23 @@
 <?php
-
 declare(strict_types = 1);
 
-namespace App\Http\Controllers;
+namespace Modules\Product\Http\Controllers\Admin;
 
 use App\Category;
-use App\Enum\ProductTypeEnum;
-use App\Http\Requests\ProductStoreRequest;
-use App\Http\Requests\ProductUpdateRequest;
-use App\Product;
-use App\ProductImage;
-use App\Services\ImagesManager;
 use App\Supply;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Modules\Product\Entities\Product;
+use Modules\Product\Entities\ProductImage;
+use Modules\Product\Enum\ProductTypeEnum;
+use Modules\Product\Http\Requests\ProductStoreRequest;
+use Modules\Product\Http\Requests\ProductUpdateRequest;
+use Modules\Product\Services\ImagesManager;
 
-/**
- * Class ProductController
- *
- * @package App\Http\Controllers
- */
 class ProductController extends Controller
 {
     /**
@@ -33,7 +28,7 @@ class ProductController extends Controller
         /** @var LengthAwarePaginator $products */
         $products = Product::query()->with(['images','categories'])->paginate();
 
-        return view('product.product-list', [
+        return view('product::product.list', [
             'list' => $products,
         ]);
     }
@@ -48,7 +43,7 @@ class ProductController extends Controller
 
         $types = ProductTypeEnum::enum();
 
-        return view('product.form',[
+        return view('product::product.form',[
             'categories'=>$categories,
             'suppliers'=>$suppliers,
             'types'=>$types
@@ -95,7 +90,7 @@ class ProductController extends Controller
         $types = ProductTypeEnum::enum();
 
 
-        return view('product.form', [
+        return view('product::product.form', [
         'product' => $product,
         'categories'=>$categories,
         'categoryIds'=>$productCategoryIds,
@@ -146,4 +141,3 @@ class ProductController extends Controller
     }
 
 }
-

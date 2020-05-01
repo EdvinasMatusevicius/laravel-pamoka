@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace App\Enum;
+namespace Modules\Product\Enum;
 
 use App\Enum\Abstracts\Enumerable;
 use ReflectionException;

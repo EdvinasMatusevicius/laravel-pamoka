@@ -2,12 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace App\DTO;
+namespace Modules\Product\DTO;
 
 use App\DTO\Abstracts\CollectionDTO;
 use App\DTO\Abstracts\DTO;
-use App\Product;
+use App\DTO\CategoryDTO;
+use App\DTO\SupplierDTO;
 use Illuminate\Support\Facades\Storage;
+use Modules\Product\Entities\Product;
 
 class ProductDTO extendS DTO
 {

@@ -1,12 +1,9 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
-namespace App\Http\Requests;
+namespace Modules\Product\Http\Requests;
 
-use App\Product;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Str;
-
+use Modules\Product\Entities\Product;
 
 class ProductUpdateRequest extends ProductStoreRequest
 {

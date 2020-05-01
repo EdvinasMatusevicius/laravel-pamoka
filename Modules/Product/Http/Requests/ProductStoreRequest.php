@@ -1,18 +1,19 @@
 <?php
-declare(strict_types=1);
-namespace App\Http\Requests;
+declare(strict_types = 1);
 
-use App\Enum\ProductTypeEnum;
-use App\Product;
+namespace Modules\Product\Http\Requests;
+
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Modules\Product\Entities\Product;
+use Modules\Product\Enum\ProductTypeEnum;
 
 class ProductStoreRequest extends FormRequest
 {
-    /**
+     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool

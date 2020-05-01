@@ -17,11 +17,11 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('title');
-            $table->text('description');
+            $table->string('slug')->unique();
+            $table->enum('type',['physical','virtual'])->default('physical');
             $table->float('price', 8, 2);
+            $table->text('description');
             $table->boolean('active')->default(false);
-            $table->string('slug')
-            ->after('title')->unique();
 
         });
     }

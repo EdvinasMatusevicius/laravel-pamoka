@@ -11,6 +11,25 @@
 |
 */
 
-Route::prefix('product')->group(function() {
-    Route::get('/', 'ProductController@index');
+use App\Http\Middleware\RouteAccessMiddleware;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth:admin', RouteAccessMiddleware::ALIAS)->group(function () {
+    Route::namespace('Admin')->group(function(){
+        Route::prefix('products')->name('products.')->group(function () {
+            Route::get('/', 'ProductController@index')
+                ->name('index');
+            Route::get('create', 'ProductController@create')
+                ->name('create');
+            Route::post('/', 'ProductController@store')
+                ->name('store');
+            Route::get('{product}/edit', 'ProductController@edit')
+                ->name('edit');
+            Route::put('{product}', 'ProductController@update')
+                ->name('update');
+            Route::delete('{product}', 'ProductController@destroy')
+                ->name('destroy');
+            });
+
+    });
 });

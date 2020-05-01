@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace App\DTO\Abstracts;
 
-use App\DTO\ProductDTO;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class PaginateLengthAwareDTO extends PaginateDTO
