@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Category;
-use Carbon\Carbon;
+namespace Modules\Product\Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Modules\Product\Entities\Category;
 
 class CategoriesTableSeeder extends Seeder
 {

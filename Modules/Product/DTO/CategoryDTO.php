@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
-namespace App\DTO;
+namespace Modules\Product\DTO;
 
-use App\Category;
 use App\DTO\Abstracts\DTO;
+use Modules\Product\Entities\Category;
 
 class CategoryDTO extends DTO
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace App\DTO;
+namespace Modules\Product\DTO;
 
 use App\DTO\Abstracts\DTO;
-use App\Supply;
 use Illuminate\Support\Facades\Storage;
+use Modules\Product\Entities\Supply;
 
 /**
  * Class SupplierDTO

@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Modules\Product\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\SupplierStoreRequest;
-use App\Http\Requests\Admin\SupplierUpdateRequest;
-use App\Supply;
 use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Modules\Product\Entities\Supply;
+use Modules\Product\Http\Requests\SupplierStoreRequest;
+use Modules\Product\Http\Requests\SupplierUpdateRequest;
 
 class SupplyController extends Controller
 {
@@ -22,7 +22,7 @@ class SupplyController extends Controller
     public function index(): View
     {
         $list = Supply::query()->paginate();
-        return view('supply.list',['list'=>$list]);
+        return view('product::supply.list',['list'=>$list]);
     }
 
     /**
@@ -32,7 +32,7 @@ class SupplyController extends Controller
      */
     public function create(): View
     {
-        return view('supply.form');
+        return view('product::supply.form');
     }
 
     /**
@@ -63,7 +63,7 @@ class SupplyController extends Controller
      */
     public function show(Supply $supplier): View
     {
-        return view('supply.view', ['item' => $supplier]);
+        return view('product::supply.view', ['item' => $supplier]);
     }
 
     /**
@@ -74,7 +74,7 @@ class SupplyController extends Controller
      */
     public function edit(Supply $supplier): View
     {
-        return view('supply.form',['item'=>$supplier]);
+        return view('product::supply.form',['item'=>$supplier]);
     }
 
     /**

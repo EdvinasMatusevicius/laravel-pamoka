@@ -2,8 +2,8 @@
 declare(strict_types=1);
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Category;
 use Faker\Generator as Faker;
+use Modules\Product\Entities\Category;
 
 $factory->define(Category::class, function (Faker $faker) {
     return [

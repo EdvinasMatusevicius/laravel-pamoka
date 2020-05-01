@@ -28,6 +28,5 @@ Route::namespace('API')->name('api.')->group(function(){
         });
     });
 
-    Route::apiResource('categories','CategoryController')->only(['index','show']);
 }
 );

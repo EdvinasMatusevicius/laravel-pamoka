@@ -12,7 +12,6 @@ class InitialDataSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            CategoriesTableSeeder::class,
             RolesTableSeeder::class
             ]);
 

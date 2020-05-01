@@ -3,16 +3,16 @@ declare(strict_types = 1);
 
 namespace Modules\Product\Http\Controllers\Admin;
 
-use App\Category;
-use App\Supply;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Modules\Product\Entities\Category;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductImage;
+use Modules\Product\Entities\Supply;
 use Modules\Product\Enum\ProductTypeEnum;
 use Modules\Product\Http\Requests\ProductStoreRequest;
 use Modules\Product\Http\Requests\ProductUpdateRequest;

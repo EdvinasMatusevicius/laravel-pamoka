@@ -2,8 +2,6 @@
 declare(strict_types=1);
 namespace Modules\Product\Entities;
 
-use App\Category;
-use App\Supply;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;

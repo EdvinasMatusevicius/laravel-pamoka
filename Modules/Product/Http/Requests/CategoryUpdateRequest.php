@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Modules\Product\Http\Requests;
 
-use App\Category;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Str;
-
+use Modules\Product\Entities\Category;
 
 class CategoryUpdateRequest extends CategoryStoreRequest
 {

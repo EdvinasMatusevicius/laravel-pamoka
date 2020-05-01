@@ -3,6 +3,7 @@
 namespace Modules\Product\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Config;
 
 class ProductServiceProvider extends ServiceProvider
@@ -26,6 +27,7 @@ class ProductServiceProvider extends ServiceProvider
     {
         $this->registerTranslations();
         $this->registerViews();
+        $this->registerFactories();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -74,7 +76,27 @@ class ProductServiceProvider extends ServiceProvider
         }
     }
 
-   
+    /**
+     * Register an additional directory of factories.
+     *
+     * @return void
+     */
+    public function registerFactories()
+    {
+        if (! app()->environment('production') && $this->app->runningInConsole()) {
+            app(Factory::class)->load(module_path($this->moduleName, 'Database/factories'));
+        }
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [];
+    }
 
     private function getPublishableViewPaths(): array
     {
