@@ -1,0 +1,25 @@
+{
+    "name": "ed/product",
+    "description": "",
+    "authors": [
+        {
+            "name": "edvinas",
+            "email": "edvinas000@hotmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Product\\Providers\\ProductServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Product\\": ""
+        }
+    }
+}
