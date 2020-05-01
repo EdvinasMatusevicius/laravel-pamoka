@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Enum\ProductTypeEnum;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Product;
@@ -45,9 +46,12 @@ class ProductController extends Controller
 
         $suppliers = Supply::query()->pluck('title','id');
 
+        $types = ProductTypeEnum::enum();
+
         return view('product.form',[
             'categories'=>$categories,
             'suppliers'=>$suppliers,
+            'types'=>$types
         ]);
     }
 
@@ -88,13 +92,18 @@ class ProductController extends Controller
         $productSupplierIds = $product->suppliers()->pluck('id')->toArray();
         $categories= Category::query()->get();
         $suppliers = Supply::query()->pluck('title','id');
+        $types = ProductTypeEnum::enum();
+
 
         return view('product.form', [
         'product' => $product,
         'categories'=>$categories,
         'categoryIds'=>$productCategoryIds,
         'supplierIds'=>$productSupplierIds,
-        'suppliers'=>$suppliers],);
+        'suppliers'=>$suppliers,
+        'types'=>$types,
+
+    ]);
     }
 
     /**

@@ -48,7 +48,8 @@ class Product extends Model
         'slug',
         'description',
         'price',
-        'active'
+        'active',
+        'type',
     ];
     protected $casts = [
         'active' => 'boolean',

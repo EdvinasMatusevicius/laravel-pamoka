@@ -2,11 +2,13 @@
 declare(strict_types=1);
 namespace App\Http\Requests;
 
+use App\Enum\ProductTypeEnum;
 use App\Product;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProductStoreRequest extends FormRequest
 {
@@ -37,7 +39,10 @@ class ProductStoreRequest extends FormRequest
             ],
             'active'=>'nullable|boolean',
             'image'=>'nullable|array',
-            'image.*'=>'nullable|image'
+            'image.*'=>'nullable|image',
+            'type'=>[
+                'required',
+            Rule::in(ProductTypeEnum::enumIds())],
         ];
     }
     protected function getValidatorInstance()
@@ -61,6 +66,7 @@ class ProductStoreRequest extends FormRequest
             'description'=>$this->getDescription(),
             'price'=>$this->getPrice(),
             'active'=>$this->getActive(),
+            'type'=>$this->getType(),
         ];
     }
     public function getTitle():string{
@@ -92,6 +98,9 @@ class ProductStoreRequest extends FormRequest
     }
     public function getImages(): array{
         return $this->file('image',[]);
+    }
+    public function getType(): string{
+        return $this->input('type');
     }
 
     protected function slugExists():bool{
