@@ -8,6 +8,7 @@ use App\DTO\Abstracts\CollectionDTO;
 use App\DTO\Abstracts\DTO;
 use Illuminate\Support\Facades\Storage;
 use Modules\Product\Entities\Product;
+use Modules\Product\Facades\PriceFormatter;
 
 class ProductDTO extendS DTO
 {
@@ -25,7 +26,7 @@ class ProductDTO extendS DTO
             'title'=> $this->product->title,
             'slug'=>$this->product->slug,
             'description'=>$this->product->description,
-            'price'=>$this->product->price,
+            'price'=>PriceFormatter::formaterWithCurrencyCode($this->product->price,'usd'),
             'images'=>$this->getImages(),
             'categories'=> $this->getCategories(),
             'suppliers'=> $this->getSuppliers()

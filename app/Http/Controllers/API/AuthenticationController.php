@@ -36,14 +36,16 @@ class AuthenticationController extends Controller
     public function login(LoginRequest $request): JsonResponse
     {
         try {
-           if(!auth()->attempt($request->getCredentials())){
-            return (new ApiResponse())->unauthorized('invalid credentials');
-           }
-           $customer=auth()->user();
+          if (!auth()->attempt($request->getCredentials())) {
+                return (new ApiResponse())->unauthorized('Invalid credentials.');
+            }
 
-           $personalAccessToken=$customer->createToken('Grant Client');
+            /** @var User $customer */
+            $customer = auth()->user();
 
-           event(new CustomerLoginEvent($customer,$personalAccessToken->token->id, Carbon::now()));
+            $personalAccessToken = $customer->createToken('Grant Client');
+
+            event(new CustomerLoginEvent($customer, $personalAccessToken->token->id, Carbon::now()));
 
            return (new ApiResponse())->success([
             'token' => $personalAccessToken->accessToken,
