@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types = 1);
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateCategoriesTable
+ */
 class CreateCategoriesTable extends Migration
 {
     /**
@@ -18,9 +23,9 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->boolean('active')->default(false);
         });
-        Schema::create('category_product', function(Blueprint $table) {
+
+        Schema::create('category_product', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
             $table->bigInteger('category_id')->unsigned();
 
@@ -48,7 +53,6 @@ class CreateCategoriesTable extends Migration
     public function down(): void
     {
         Schema::dropIfExists('category_product');
-
         Schema::dropIfExists('categories');
     }
 }

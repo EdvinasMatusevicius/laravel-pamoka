@@ -1,45 +1,54 @@
 <?php
-declare(strict_types=1);
+
+declare(strict_types = 1);
+
 namespace Modules\Product\Entities;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
- * Modules\Product\Entities\Product
+ * Class Product
  *
+ * @package Modules\Product\Entities
  * @property int $id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string $title
  * @property string $slug
  * @property string $description
  * @property float $price
  * @property bool $active
  * @property string $type
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Category[] $categories
+ * @property-read Collection|Category[] $categories
  * @property-read int|null $categories_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\ProductImage[] $images
+ * @property-read Collection|ProductImage[] $images
  * @property-read int|null $images_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Supply[] $suppliers
+ * @property-read Collection|Supply[] $suppliers
  * @property-read int|null $suppliers_count
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product query()
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product whereActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Product whereUpdatedAt($value)
+ * @method static Builder|Product newModelQuery()
+ * @method static Builder|Product newQuery()
+ * @method static Builder|Product query()
+ * @method static Builder|Product whereActive($value)
+ * @method static Builder|Product whereCreatedAt($value)
+ * @method static Builder|Product whereDescription($value)
+ * @method static Builder|Product whereId($value)
+ * @method static Builder|Product wherePrice($value)
+ * @method static Builder|Product whereSlug($value)
+ * @method static Builder|Product whereTitle($value)
+ * @method static Builder|Product whereType($value)
+ * @method static Builder|Product whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Product extends Model
 {
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'title',
         'slug',
@@ -48,20 +57,35 @@ class Product extends Model
         'active',
         'type',
     ];
+
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'active' => 'boolean',
     ];
+
     /**
      * @return BelongsToMany
      */
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class,'category_product','product_id','category_id');
+        return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id');
     }
-    public function suppliers(): BelongsToMany{
-        return $this->belongsToMany(Supply::class,'supply_product');
+
+    /**
+     * @return BelongsToMany
+     */
+    public function suppliers(): BelongsToMany
+    {
+        return $this->belongsToMany(Supply::class, 'supply_product');
     }
-    public function images(): HasMany{
+
+    /**
+     * @return HasMany
+     */
+    public function images(): HasMany
+    {
         return $this->hasMany(ProductImage::class);
-    } 
+    }
 }

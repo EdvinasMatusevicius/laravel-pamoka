@@ -30,4 +30,4 @@ class ProductTypeEnum extends Enumerable
     {
         return self::make('virtual', 'Virtual', 'Product is virtual');
     }
-} 
+}

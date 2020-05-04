@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Modules\Product\Entities;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * Modules\Product\Entities\Supply
@@ -13,24 +17,27 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $phone
  * @property string $email
  * @property string|null $address
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply query()
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply whereAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply whereLogo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Modules\Product\Entities\Supply whereUpdatedAt($value)
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Supply newModelQuery()
+ * @method static Builder|Supply newQuery()
+ * @method static Builder|Supply query()
+ * @method static Builder|Supply whereAddress($value)
+ * @method static Builder|Supply whereCreatedAt($value)
+ * @method static Builder|Supply whereEmail($value)
+ * @method static Builder|Supply whereId($value)
+ * @method static Builder|Supply whereLogo($value)
+ * @method static Builder|Supply wherePhone($value)
+ * @method static Builder|Supply whereTitle($value)
+ * @method static Builder|Supply whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Supply extends Model
 {
-    protected $fillable =[
+    /**
+     * @var array
+     */
+    protected $fillable = [
         'title',
         'logo',
         'phone',

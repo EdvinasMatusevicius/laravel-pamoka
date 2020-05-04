@@ -1,10 +1,16 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Modules\Product\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 
+/**
+ * Class SupplierStoreRequest
+ * @package App\Http\Requests\Admin
+ */
 class SupplierStoreRequest extends FormRequest
 {
     /**
@@ -32,6 +38,10 @@ class SupplierStoreRequest extends FormRequest
             'address' => 'nullable|max:255',
         ];
     }
+
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         return [
@@ -96,4 +106,6 @@ class SupplierStoreRequest extends FormRequest
     {
         return $this->file('logo');
     }
+
+
 }

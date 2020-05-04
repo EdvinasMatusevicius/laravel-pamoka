@@ -1,12 +1,15 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Modules\Product\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Product\Entities\Category;
 
+/**
+ * Class CategoriesTableSeeder
+ */
 class CategoriesTableSeeder extends Seeder
 {
     /**
@@ -16,8 +19,8 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run(): void
     {
-       factory(Category::class)->state('all')->create();
-       factory(Category::class)->state('newest')->create();
-       factory(Category::class)->state('popular')->create();
+        factory(Category::class)->state('all')->create();
+        factory(Category::class)->state('newest')->create();
+        factory(Category::class)->state('most_seen')->create();
     }
 }

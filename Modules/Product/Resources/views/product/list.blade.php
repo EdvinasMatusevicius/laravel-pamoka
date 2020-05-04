@@ -18,27 +18,30 @@
                                 <th>Title</th>
                                 <th>Slug</th>
                                 <th>Price</th>
-                                <th>Category</th>
+                                <th>Categories</th>
                                 <th>Active</th>
                                 <th>Actions</th>
                             </tr>
+
                             @foreach($list as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>
-                                        @if($item->images->isNotEmpty())
-                                            <img src="{{Storage::url($item->images->first()->file)}}" width='100px'>
+                                        @if ($item->images->isNotEmpty())
+                                            <img src="{{Storage::url($item->images->first()->file)}}" width="100px">
                                         @endif
                                     </td>
                                     <td>{{ $item->title }}</td>
-                                    <td>{{ $item->slug}}</td>
-                                    <td>{{ $item->price }}</td>
+                                    <td>{{ $item->slug }}</td>
+                                    <td>{{ PriceFormatter::formatWithCurrencyCode($item->price) }}</td>
                                     <td>
                                         @foreach($item->categories as $category)
                                             {{$category->title}}<br>
                                         @endforeach
                                     </td>
-                                    <td class="@if($item->active)text-success @else text-danger @endif">{{$item->active ? 'yes' : 'no'}}</td>
+                                    <td class="@if ($item->active) text-success @else text-danger @endif">
+                                        {{ $item->active ? 'Yes' : 'No'   }}
+                                    </td>
                                     <td>
                                         <a href="{{ route('products.edit', ['product' => $item->id]) }}"
                                            class="btn btn-sm btn-primary">Edit</a>

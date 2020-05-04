@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Modules\Product\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class ProductDatabaseSeeder
+ * @package Modules\Product\Database\Seeders
+ */
 class ProductDatabaseSeeder extends Seeder
 {
     /**
@@ -14,8 +19,6 @@ class ProductDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
         $this->call(CategoriesTableSeeder::class);
     }
 }

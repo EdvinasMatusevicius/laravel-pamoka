@@ -1,12 +1,19 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Modules\Product\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\ServiceProvider;
+use Modules\Product\Facades\PriceFormatter as FacadesPriceFormatter;
 use Modules\Product\Helpers\PriceFormatter;
 
+/**
+ * Class ProductServiceProvider
+ * @package Modules\Product\Providers
+ */
 class ProductServiceProvider extends ServiceProvider
 {
     /**
@@ -40,9 +47,9 @@ class ProductServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
         $this->bindFacades();
     }
-
 
     /**
      * Register views.
@@ -56,7 +63,7 @@ class ProductServiceProvider extends ServiceProvider
         $sourcePath = module_path($this->moduleName, 'Resources/views');
 
         $this->publishes([
-            $sourcePath => $viewPath
+            $sourcePath => $viewPath,
         ], ['views', $this->moduleNameLower . '-module-views']);
 
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
@@ -85,7 +92,7 @@ class ProductServiceProvider extends ServiceProvider
      */
     public function registerFactories()
     {
-        if (! app()->environment('production') && $this->app->runningInConsole()) {
+        if (!app()->environment('production') && $this->app->runningInConsole()) {
             app(Factory::class)->load(module_path($this->moduleName, 'Database/factories'));
         }
     }
@@ -100,6 +107,9 @@ class ProductServiceProvider extends ServiceProvider
         return [];
     }
 
+    /**
+     * @return array
+     */
     private function getPublishableViewPaths(): array
     {
         $paths = [];
@@ -108,12 +118,18 @@ class ProductServiceProvider extends ServiceProvider
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }
         }
+
         return $paths;
     }
-    private function bindFacades():void
+
+    /**
+     * @return void
+     */  
+    private function bindFacades(): void
     {
-        $this->app->bind('price-formatter',function()
-        {return new PriceFormatter();}
-    );
+        $this->app->bind('price-formatter', function () {
+            return new PriceFormatter();
+        });
     }
+
 }

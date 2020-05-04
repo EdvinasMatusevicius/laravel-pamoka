@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Modules\Product\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class SupplierUpdateRequest
+ * @package Modules\Product\Http\Requests
+ */
 class SupplierUpdateRequest extends SupplierStoreRequest
 {
     /**
@@ -11,7 +16,7 @@ class SupplierUpdateRequest extends SupplierStoreRequest
      *
      * @return bool
      */
-    public function authorize():bool
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,11 +26,14 @@ class SupplierUpdateRequest extends SupplierStoreRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return parent::rules();
-        
     }
+
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         return [
@@ -35,6 +43,10 @@ class SupplierUpdateRequest extends SupplierStoreRequest
             'address' => $this->getAddress(),
         ];
     }
+
+    /**
+     * @return bool
+     */
     public function getDeleteLogo(): bool
     {
         return (bool)$this->input('delete_logo');

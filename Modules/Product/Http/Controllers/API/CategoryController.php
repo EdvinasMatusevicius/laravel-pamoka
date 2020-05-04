@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Modules\Product\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -10,57 +12,69 @@ use Modules\Product\Services\CategoryService;
 use Modules\Product\Services\ProductService;
 use Throwable;
 
+/**
+ * Class CategoryController
+ * @package App\Http\Controllers\API
+ */
 class CategoryController extends Controller
 {
-
+    /**
+     * @var CategoryService
+     */
     private $categoryService;
+    /**
+     * @var ProductService
+     */
     private $productService;
 
-
+    /**
+     * CategoryController constructor.
+     * @param CategoryService $categoryService
+     * @param ProductService $productService
+     */
     public function __construct(CategoryService $categoryService, ProductService $productService)
     {
         $this->categoryService = $categoryService;
         $this->productService = $productService;
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function index(): JsonResponse
     {
         try {
-            $categoryDTO =$this->categoryService->getAllForApi();
+            $categoryDTO = $this->categoryService->getAllForApi();
 
             return (new ApiResponse())->success($categoryDTO);
-        } catch (\Throwable $exeption) {
-            logger()->error($exeption->getMessage());
+        } catch (Throwable $exception) {
+            logger()->error($exception->getMessage());
 
-            return (new ApiResponse())->exeption();
+            return (new ApiResponse())->exception();
         }
-
     }
 
-
-
+    /**
+     * Display the specified resource.
+     *
+     * @param string $slug
+     * @return JsonResponse
+     */
     public function show(string $slug): JsonResponse
     {
         try {
             $categoryDTO = $this->productService->getPaginateByCategorySlugForApi($slug);
 
             return (new ApiResponse())->success($categoryDTO);
-
-        } catch (ModelNotFoundException $exeption) {
-             
+        } catch (ModelNotFoundException $exception) {
             return (new ApiResponse())->modelNotFound();
+        } catch (Throwable $exception) {
+            logger()->error($exception->getMessage());
 
-        }catch(Throwable $exeption){
-
-            logger()->error($exeption->getMessage());
-            return (new ApiResponse())->exeption();
+            return (new ApiResponse())->exception();
         }
 
     }
-
-
 }

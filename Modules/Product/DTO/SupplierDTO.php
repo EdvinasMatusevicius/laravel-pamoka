@@ -39,4 +39,4 @@ class SupplierDTO extends DTO
             'logo' => $this->supply->logo ? Storage::url($this->supply->logo) : null,
         ];
     }
-} 
+}

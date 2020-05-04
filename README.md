@@ -31,5 +31,6 @@ Product catalog administration as well as API,customer login and products.
 - Run `php artisan db:seed --class=InitalDataSeeder` command,
 - Create first admin user run `php artisan admin:create` command,
 - Run `php artisan passport:install` command,
+- To `config\app.php` file `aliases` array add 'PriceFormatter'=>\Modules\Product\Facades\PriceFormatter::class
 - If you don't have virtualization run `php artisan serve` command
 - Go to your domain on web browser

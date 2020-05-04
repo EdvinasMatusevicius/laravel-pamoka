@@ -1,12 +1,19 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Modules\Product\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Modules\Product\Entities\Category;
 
+/**
+ * Class CategoryStoreRequest
+ *
+ * @package App\Http\Requests
+ */
 class CategoryStoreRequest extends FormRequest
 {
     /**
@@ -14,8 +21,7 @@ class CategoryStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize(): bool
-    {
+    public function authorize(): bool {
         return true;
     }
 
@@ -24,47 +30,64 @@ class CategoryStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'title'=>'required|string|max:255|min:3',
-            'active'=>'nullable|boolean'
+            'title' => 'required|string|min:3|max:255',
         ];
     }
-    public function getData(): array{
-        return [
-            'title'=>$this->getTitle(),
-            'slug'=>$this->getSlug(),
-            'active'=>$this->getActive(),
-        ];
-    }
-    protected function getValidatorInstance()
-    {
+
+    /**
+     * @return Validator
+     */
+    protected function getValidatorInstance() {
         $validator = parent::getValidatorInstance();
-        $validator->after(function(Validator $validator){
-            if($this->slugExists()){
-                $validator->errors()->add('slug','This slug already exists');
+
+        $validator->after(function(Validator $validator) {
+            if ($this->slugExists()) {
+                $validator->errors()
+                    ->add('slug', 'This slug already exists.');
             }
         });
+
         return $validator;
     }
-    public function getTitle():string{
-        return $this->input('title');
+
+    /**
+     * @return array
+     */
+    public function getData(): array {
+        return [
+            'title' => $this->getTitle(),
+            'slug' => $this->getSlug(),
+        ];
     }
-    protected function getSlug(){
-        $slugUnprepared=$this->input('slug'); 
-        if(empty($slugUnprepared)){
-            $slugUnprepared=$this->getTitle();
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string {
+        return (string)$this->input('title');
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug() {
+        $slugUnprepared = $this->input('slug');
+
+        if (empty($slugUnprepared)) {
+            $slugUnprepared = $this->getTitle();
         }
+
         return Str::slug(trim($slugUnprepared));
     }
-        
-    public function getActive():bool{
-        return (bool)$this->input('active');
-    }
-    protected function slugExists():bool{
+
+    /**
+     * @return bool
+     */
+    protected function slugExists(): bool {
         return Category::query()
-        ->where('slug','=',$this->getSlug())
-        ->exists();
+            ->where('slug', '=', $this->getSlug())
+            ->exists();
     }
 }

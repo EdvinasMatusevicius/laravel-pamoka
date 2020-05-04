@@ -1,34 +1,43 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Modules\Product\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Modules\Product\Entities\Supply;
 use Modules\Product\Http\Requests\SupplierStoreRequest;
 use Modules\Product\Http\Requests\SupplierUpdateRequest;
 
+
+/**
+ * Class SupplyController
+ * @package Modules\Product\Http\Controllers\Admin
+ */
 class SupplyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index(): View
     {
         $list = Supply::query()->paginate();
-        return view('product::supply.list',['list'=>$list]);
+
+        return view('product::supply.list', [
+            'list' => $list,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create(): View
     {
@@ -38,8 +47,8 @@ class SupplyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param SupplierStoreRequest $request
+     * @return RedirectResponse
      */
     public function store(SupplierStoreRequest $request): RedirectResponse
     {
@@ -58,8 +67,8 @@ class SupplyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Supply  $supply
-     * @return \Illuminate\Http\Response
+     * @param Supply $supplier
+     * @return View
      */
     public function show(Supply $supplier): View
     {
@@ -69,20 +78,20 @@ class SupplyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Supply  $supply
-     * @return \Illuminate\Http\Response
+     * @param Supply $supplier
+     * @return View
      */
     public function edit(Supply $supplier): View
     {
-        return view('product::supply.form',['item'=>$supplier]);
+        return view('product::supply.form', ['item' => $supplier]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Supply  $supply
-     * @return \Illuminate\Http\Response
+     * @param SupplierUpdateRequest $request
+     * @param Supply $supplier
+     * @return RedirectResponse
      */
     public function update(SupplierUpdateRequest $request, Supply $supplier): RedirectResponse
     {
@@ -114,8 +123,8 @@ class SupplyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Supply  $supply
-     * @return \Illuminate\Http\Response
+     * @param Supply $supplier
+     * @return RedirectResponse
      */
     public function destroy(Supply $supplier): RedirectResponse
     {

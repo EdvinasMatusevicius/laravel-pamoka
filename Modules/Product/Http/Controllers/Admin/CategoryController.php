@@ -5,10 +5,9 @@ declare(strict_types = 1);
 namespace Modules\Product\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Modules\Product\Entities\Category;
 use Modules\Product\Http\Requests\CategoryStoreRequest;
@@ -25,7 +24,6 @@ class CategoryController extends Controller
      * @return View
      */
     public function index(): View {
-        /** @var LengthAwarePaginator $categories */
         $categories = Category::query()->paginate();
 
         return view('product::category.list', ['list' => $categories]);
@@ -39,7 +37,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param CategoryStoreRequest $request
      *
      * @return RedirectResponse
      */
@@ -57,22 +55,23 @@ class CategoryController extends Controller
      * @return Factory|View
      */
     public function edit(int $id): View {
-        // SELECT * FROM products WHERE id = ?
         $category = Category::query()->find($id);
 
         return view('product::category.form', ['category' => $category]);
     }
 
     /**
-     * @param Request $request
+     * @param CategoryUpdateRequest $request
      * @param int $id
      *
      * @return RedirectResponse
      */
-    public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse {
+    public function update(CategoryUpdateRequest $request, int $id): RedirectResponse {
         $data = $request->getData();
 
-        $category->update($data);
+        Category::query()
+            ->where('id', '=', $id)
+            ->update($data);
 
         return redirect()->route('categories.index');
     }
@@ -81,9 +80,9 @@ class CategoryController extends Controller
      * @param int $id
      *
      * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(int $id): RedirectResponse {
-        // DELETE FROM products WHERE id = ?
         Category::query()
             ->where('id', '=', $id)
             ->delete();

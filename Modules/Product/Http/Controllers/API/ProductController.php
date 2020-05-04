@@ -1,50 +1,59 @@
 <?php
-declare(strict_types=1);
+
+declare(strict_types = 1);
+
 namespace Modules\Product\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Responses\ApiResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Modules\Product\Services\ProductService;
 use Throwable;
 
+/**
+ * Class ProductController
+ * @package Modules\Product\Http\Controllers\API
+ */
 class ProductController extends Controller
 {
+    /**
+     * @var ProductService
+     */
     private $productService;
 
+    /**
+     * ProductController constructor.
+     * @param ProductService $productService
+     */
     public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
-
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function index(): JsonResponse
     {
         try {
-            
-            $productDTO = $this->productService->getPaginateForApi();
-            return (new ApiResponse())->success($productDTO);
-            
-        } catch (\Throwable $exeption) {
-            logger()->error($exeption->getMessage());
+            $productsDto = $this->productService->getPaginateForApi();
 
-            return (new ApiResponse())->exeption();
+            return (new ApiResponse())->success($productsDto);
+        } catch (Throwable $exception) {
+            logger()->error($exception->getMessage());
+
+            return (new ApiResponse())->exception();
         }
     }
-
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $slug
+     * @return JsonResponse
      */
     public function show(string $slug): JsonResponse
     {
@@ -52,15 +61,12 @@ class ProductController extends Controller
             $productDTO = $this->productService->getBySlugForApi($slug);
 
             return (new ApiResponse())->success($productDTO);
-
-        } catch (ModelNotFoundException $exeption) {
+        } catch (ModelNotFoundException $exception) {
             return (new ApiResponse())->modelNotFound();
-            
-        } catch(Throwable $exeption){
-            logger()->error($exeption->getMessage());
-            return (new ApiResponse())->exeption();
+        } catch (Throwable $exception) {
+            logger()->error($exception->getMessage());
+
+            return (new ApiResponse())->exception();
         }
     }
-
-
 }
