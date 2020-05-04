@@ -3,6 +3,7 @@
 use App\Http\Middleware\RouteAccessMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,7 +45,8 @@ Route::namespace('Admin\Auth')->prefix('admin')->name('admin.')->group(function(
 
 Route::middleware('auth:admin', RouteAccessMiddleware::ALIAS)->group(function () {
     Route::namespace('Admin')->group(function(){
-        
+
+
         Route::get('admins/me', 'AdminController@me')
             ->name('admins.me');
         Route::resource('admins', 'AdminController')->except('show');
