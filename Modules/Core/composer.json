@@ -1,0 +1,25 @@
+{
+    "name": "ed/core",
+    "description": "",
+    "authors": [
+        {
+            "name": "edvinas",
+            "email": "edvinas000@hotmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Core\\Providers\\CoreServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Core\\": ""
+        }
+    }
+}

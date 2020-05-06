@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Modules\Product\Facades\PriceFormatter as FacadesPriceFormatter;
 use Modules\Product\Helpers\PriceFormatter;
+use Modules\Product\Repositories\CategoryRepository;
+use Modules\Product\Repositories\ProductRepository;
+use Modules\Product\Repositories\SupplyRepository;
+use Modules\Product\Services\CategoryService;
+use Modules\Product\Services\ProductService;
 
 /**
  * Class ProductServiceProvider
@@ -47,6 +52,9 @@ class ProductServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+
+        $this->registerRepositories();
+        $this->registerServices();
 
         $this->bindFacades();
     }
@@ -130,6 +138,17 @@ class ProductServiceProvider extends ServiceProvider
         $this->app->bind('price-formatter', function () {
             return new PriceFormatter();
         });
+    }
+    private function registerRepositories():void
+    {
+        $this->app->singleton(ProductRepository::class);
+        $this->app->singleton(CategoryRepository::class);
+        $this->app->singleton(SupplyRepository::class);
+    }
+    private function registerServices(): void
+    {
+        $this->app->singleton(CategoryService::class);   
+        $this->app->singleton(ProductService::class);   
     }
 
 }
