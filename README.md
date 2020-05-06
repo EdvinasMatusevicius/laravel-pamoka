@@ -28,7 +28,7 @@ Product catalog administration as well as API,customer login and products.
 - Add `FILESYSTEM_DRIVER=public` to `.env` file,
 - Run `php artisan storage:link` command,
 - Run `php artisan migrate` command,
-- Run `php artisan db:seed --class=InitalDataSeeder` command,
+- Run `php artisan db:seed --class=InitialDataSeeder` command,
 - Create first admin user run `php artisan admin:create` command,
 - Run `php artisan passport:install` command,
 - To `config\app.php` file `aliases` array add 'PriceFormatter'=>\Modules\Product\Facades\PriceFormatter::class

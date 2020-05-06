@@ -1,0 +1,25 @@
+{
+    "name": "vrimeikis/contactus",
+    "description": "",
+    "authors": [
+        {
+            "name": "Vytautas Rimeikis",
+            "email": "vytautas.rimeikis@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\ContactUs\\Providers\\ContactUsServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ContactUs\\": ""
+        }
+    }
+}
