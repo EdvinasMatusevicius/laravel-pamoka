@@ -8,6 +8,8 @@ use App\Http\Responses\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
+use Modules\ContactUs\Emails\NewMessageMail;
 use Modules\ContactUs\Http\Requests\API\ContactMessageRequest;
 use Modules\ContactUs\Services\ContactMessageService;
 
@@ -34,12 +36,15 @@ class ContactMessageController extends Controller
      */
     public function store(ContactMessageRequest $request): JsonResponse
     {
+        $start = microtime(true);
         try {
-            $this->messageService->storeData($request->getData());
+           $message = $this->messageService->storeData($request->getData());
         } catch (Exception $exception) {
-            return (new ApiResponse())->exception();
+            return (new ApiResponse())->exeption();
         }
 
-        return (new ApiResponse())->success();
+        Mail::to('admin@admin.com')->later(now()->addMinute(),new NewMessageMail($message));
+        $finish = microtime(true)-$start;
+        return (new ApiResponse())->success(['time'=>$finish]);
     }
 }
