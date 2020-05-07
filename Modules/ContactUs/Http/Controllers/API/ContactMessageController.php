@@ -11,6 +11,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Modules\ContactUs\Emails\NewMessageMail;
 use Modules\ContactUs\Http\Requests\API\ContactMessageRequest;
+use Modules\ContactUs\Jobs\NewMessageJob;
 use Modules\ContactUs\Services\ContactMessageService;
 
 class ContactMessageController extends Controller
@@ -40,10 +41,10 @@ class ContactMessageController extends Controller
         try {
            $message = $this->messageService->storeData($request->getData());
         } catch (Exception $exception) {
-            return (new ApiResponse())->exeption();
+            return (new ApiResponse())->exception();
         }
 
-        Mail::to('admin@admin.com')->later(now()->addMinute(),new NewMessageMail($message));
+        NewMessageJob::dispatch($message)->onQueue('mail');
         $finish = microtime(true)-$start;
         return (new ApiResponse())->success(['time'=>$finish]);
     }

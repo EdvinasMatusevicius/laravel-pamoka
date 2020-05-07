@@ -33,9 +33,9 @@ class CustomerController extends Controller
 
             return redirect()->route('customers.index')
             ->with('status','Customer created');
-        } catch (Exception $exeption) {
+        } catch (Exception $exception) {
             return redirect()->back()->withInput()
-            ->with('danger',$exeption->getMessage());
+            ->with('danger',$exception->getMessage());
         }
     }
 
@@ -58,9 +58,9 @@ class CustomerController extends Controller
             $customer->save();
 
             return redirect()->route('customers.index')->with('status','customer updated successfuly');
-        } catch (Exception $exeption) {
+        } catch (Exception $exception) {
             return redirect()->back()->withInput()
-            ->with('danger',$exeption->getMessage());
+            ->with('danger',$exception->getMessage());
         }
        
     }

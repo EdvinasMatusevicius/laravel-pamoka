@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Modules\ContactUs\Entities\ContactMessage;
 
-class NewMessageMail extends Mailable implements ShouldQueue
+class NewMessageMail extends Mailable
 {
     use Queueable, SerializesModels;
 

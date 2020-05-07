@@ -65,6 +65,13 @@ return [
             'retry_after' => 90,
             'block_for' => null,
         ],
+        // 'redis_email' => [
+        //     'driver' => 'redis',
+        //     'connection' => 'default',
+        //     'queue' => env('REDIS_EMAIL_QUEUE', 'email'),
+        //     'retry_after' => 90,
+        //     'block_for' => null,
+        // ],
 
     ],
 

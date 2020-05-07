@@ -24,8 +24,8 @@ class AuthenticationController extends Controller
         try {
             User::query()->create($request->getData());
             
-        } catch (Exception $exeption) {
-            return (new ApiResponse())->exeption($exeption->getMessage());
+        } catch (Exception $exception) {
+            return (new ApiResponse())->exception($exception->getMessage());
         }
         if($this->loginAfterSignUp){
             return $this->login($request);
@@ -52,8 +52,8 @@ class AuthenticationController extends Controller
                'token_type'=>'bearer',
            ]);
             
-        } catch (Exception $exeption) {
-            return (new ApiResponse())->exeption($exeption->getMessage());
+        } catch (Exception $exception) {
+            return (new ApiResponse())->exception($exception->getMessage());
         }
     }
     public function me(): JsonResponse
@@ -64,8 +64,8 @@ class AuthenticationController extends Controller
            $customerDTO= new CustomerDTO($customer);
 
            return (new ApiResponse())->success($customerDTO);
-        }catch(Exception $exeption){
-            return (new ApiResponse())->exeption($exeption->getMessage());
+        }catch(Exception $exception){
+            return (new ApiResponse())->exception($exception->getMessage());
         }
     }
     public function logout(Request $request):JsonResponse
@@ -80,8 +80,8 @@ class AuthenticationController extends Controller
             $token->revoke();
             event(new CustomerLogoutEvent($customer,$tokenId,Carbon::now()));
 
-        }catch(Exception $exeption){
-            return (new ApiResponse())->exeption($exeption->getMessage());
+        }catch(Exception $exception){
+            return (new ApiResponse())->exception($exception->getMessage());
         }
         return (new ApiResponse())->success();
     }

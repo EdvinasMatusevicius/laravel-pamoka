@@ -91,11 +91,11 @@ class ProductController extends Controller
                 $request->getSuppliers(),
                 $request->getImages()
             );
-        }catch(ModelRelationMissingException $exeption){
+        }catch(ModelRelationMissingException $exception){
             return redirect()->route('products.index')
-            ->with('danger',$exeption->getMessage());
+            ->with('danger',$exception->getMessage());
 
-        }catch(Exception $exeption){
+        }catch(Exception $exception){
             return redirect()->route('products.index')
             ->with('danger','Something wrong');
         }
@@ -133,9 +133,9 @@ class ProductController extends Controller
             'suppliers' => $suppliers,
             'types' => $types,
         ]);
-    } catch (ModelNotFoundException $exeption) {
+    } catch (ModelNotFoundException $exception) {
         return redirect()->route('products.index')->with('danger','Record not found');
-    } catch (Exception $exeption){
+    } catch (Exception $exception){
         return redirect()->route('products.index')->with('danger','Something went wrong');
     }
     }
@@ -155,13 +155,13 @@ class ProductController extends Controller
                 $request->getData(),
                 $id,$request->getDeleteImages()
             );
-        }catch(ModelNotFoundException $exeption){
+        }catch(ModelNotFoundException $exception){
             return redirect()->back()->withInput()
             ->with('danger','Record not found');
-        }catch(ModelRelationMissingException $exeption){
+        }catch(ModelRelationMissingException $exception){
             return redirect()->back()->withInput()
-            ->with('danger',$exeption->getMessage());
-        }catch(Exception $exeption){
+            ->with('danger',$exception->getMessage());
+        }catch(Exception $exception){
             return redirect()->back()->withInput()
             ->with('danger','Record not found');
         }
@@ -179,15 +179,15 @@ class ProductController extends Controller
     {
         try{
         $this->productService->delete($id);
-        }catch(ModelNotFoundException $exeption){
+        }catch(ModelNotFoundException $exception){
             return redirect()->route('products.index')
             ->with('danger','Record not found');
 
-        }catch(ModelRelationMissingException $exeption){
+        }catch(ModelRelationMissingException $exception){
             return redirect()->route('products.index')
-            ->with('danger',$exeption->getMessage());
+            ->with('danger',$exception->getMessage());
 
-        }catch(Exception $exeption){
+        }catch(Exception $exception){
             return redirect()->route('products.index')
             ->with('danger','Something wrong');
         }

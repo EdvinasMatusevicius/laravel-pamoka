@@ -71,10 +71,10 @@ class AdminController extends Controller
             // $admin = Admin::query()->create($request->getData());
             $admin->roles()->sync($request->getRoles());
 
-        } catch (\Exception $exeption) {
+        } catch (\Exception $exception) {
             return redirect()->back()
             ->withInput()
-            ->with('danger',$exeption->getMessage());
+            ->with('danger',$exception->getMessage());
         }
         return redirect()->route('admins.index')->with('status','admin created');
     }

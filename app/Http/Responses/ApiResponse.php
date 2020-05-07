@@ -35,11 +35,11 @@ class ApiResponse
         return response()->json($response,JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
 
     }
-    public function exeption(?string $message = null): JsonResponse
+    public function exception(?string $message = null): JsonResponse
     {
         $response = $this->setStatus(JsonResponse::HTTP_BAD_REQUEST)->base();
         $response['message']= $message ?? 'Unauthorized';
-        return response()->json($response,JsonResponse::HTTP_BAD_REQUEST);  //--------------[]
+        return response()->json($response,JsonResponse::HTTP_BAD_REQUEST);  
     }
 
     public function setStatus(int $status=null): ApiResponse

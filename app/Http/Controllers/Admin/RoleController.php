@@ -55,8 +55,8 @@ class RoleController extends Controller
     {
         try {
             Roles::query()->create($request->getData());
-        } catch (Exception $exeption) {
-            return redirect()->back()->withInput()->with('danger', $exeption->getMessage());
+        } catch (Exception $exception) {
+            return redirect()->back()->withInput()->with('danger', $exception->getMessage());
         }
 
         return redirect()->route('roles.index')->with('status','Role created');
@@ -102,9 +102,9 @@ class RoleController extends Controller
         try {
             $role->update($request->getData());
             $this->routeAccessManager->flushCache();
-        } catch (Exception $exeption) {
+        } catch (Exception $exception) {
             return back()->withInput()
-            ->with('danger',$exeption->getMessage());
+            ->with('danger',$exception->getMessage());
         }
 
         return redirect()->route('roles.index')->with('status','Role updated');
@@ -122,9 +122,9 @@ class RoleController extends Controller
             $role->delete();
             $this->routeAccessManager->flushCache();
 
-        } catch (Exception $exeption) {
+        } catch (Exception $exception) {
             return back()
-            ->with('danger',$exeption->getMessage());
+            ->with('danger',$exception->getMessage());
         }
 
         return redirect()->route('roles.index')->with('status','Role deleted');
